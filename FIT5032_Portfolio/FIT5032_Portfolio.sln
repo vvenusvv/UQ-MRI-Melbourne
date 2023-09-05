@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIT5032_Portfolio", "FIT5032_Portfolio\FIT5032_Portfolio.csproj", "{751DDE1A-A033-4DCF-8DB2-D76EAFECF1C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIT5032_Portfolio.Tests", "FIT5032_Portfolio.Tests\FIT5032_Portfolio.Tests.csproj", "{A3F8BAB1-187F-4C06-B2B0-013CF7F75FF8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{751DDE1A-A033-4DCF-8DB2-D76EAFECF1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{751DDE1A-A033-4DCF-8DB2-D76EAFECF1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{751DDE1A-A033-4DCF-8DB2-D76EAFECF1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{751DDE1A-A033-4DCF-8DB2-D76EAFECF1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F8BAB1-187F-4C06-B2B0-013CF7F75FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F8BAB1-187F-4C06-B2B0-013CF7F75FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F8BAB1-187F-4C06-B2B0-013CF7F75FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F8BAB1-187F-4C06-B2B0-013CF7F75FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69252442-169A-4DE7-909E-6156D04C193F}
+	EndGlobalSection
+EndGlobal

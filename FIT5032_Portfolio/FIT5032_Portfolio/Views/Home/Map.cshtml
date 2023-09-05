@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Map";
+}
+<main aria-labelledby="title">
+    <br />
+    <h1 id="title">@ViewBag.Title</h1>
+    <h3>@ViewBag.Message</h3>
+
+    <p>
+        Find a MRI Service Provider
+    </p>
+    @Html.ActionLink("List of MRI Service Provider", "Index", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })
+    <hr />
+    <p>Accessible to Admin only</p>
+    @Html.ActionLink("Add a MRI Service Provider", "Create", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })
+    @Html.ActionLink("List of MRI Service Provider", "Index", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })
+</main>
