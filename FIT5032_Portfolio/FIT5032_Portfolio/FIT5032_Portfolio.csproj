@@ -50,6 +50,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -169,18 +171,47 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MRIServiceProvidersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs">
+      <DependentUpon>UQMRIMelbModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AppointmentViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MRIServiceProvider.cs">
+      <DependentUpon>UQMRIMelbModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MRIServiceProviderViewModel.cs" />
+    <Compile Include="Models\UQMRIMelbModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UQMRIMelbModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UQMRIMelbModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UQMRIMelbModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UQMRIMelbModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UQMRIMelbModels.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-FIT5032_Portfolio-20230905082735.mdf" />
+    <Content Include="App_Data\aspnet-FIT5032_Portfolio-20230905082735_log.ldf">
+      <DependentUpon>aspnet-FIT5032_Portfolio-20230905082735.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -200,12 +231,29 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\UQMRIMelbModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UQMRIMelbModels.edmx</DependentUpon>
+      <LastGenOutput>UQMRIMelbModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\UQMRIMelbModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UQMRIMelbModels.edmx</DependentUpon>
+      <LastGenOutput>UQMRIMelbModels.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\UQMRIMelbModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UQMRIMelbModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\UQMRIMelbModels.edmx.diagram">
+      <DependentUpon>UQMRIMelbModels.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -251,9 +299,19 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\MRIServiceProviders\Create.cshtml" />
+    <Content Include="Views\MRIServiceProviders\Delete.cshtml" />
+    <Content Include="Views\MRIServiceProviders\Details.cshtml" />
+    <Content Include="Views\MRIServiceProviders\Edit.cshtml" />
+    <Content Include="Views\MRIServiceProviders\Index.cshtml" />
+    <Content Include="Views\Appointments\Create.cshtml" />
+    <Content Include="Views\Appointments\Delete.cshtml" />
+    <Content Include="Views\Appointments\Details.cshtml" />
+    <Content Include="Views\Appointments\Edit.cshtml" />
+    <Content Include="Views\Appointments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
