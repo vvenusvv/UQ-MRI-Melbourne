@@ -19,7 +19,7 @@ namespace FIT5032_Portfolio.Models
         [Required]
         [Display(Name = "Address")]
         public string Address { get; set; }
-        [Required]
+
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -39,7 +39,7 @@ namespace FIT5032_Portfolio.Models
         [Display(Name = "Latitude")]
         public string Lat { get; set; }
 
-        [Display(Name = "Longtitude")]
+        [Display(Name = "Longitude")]
         public string Long { get; set; }
 
     }

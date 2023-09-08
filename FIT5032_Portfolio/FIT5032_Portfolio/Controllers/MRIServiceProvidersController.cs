@@ -11,12 +11,20 @@ using Microsoft.AspNet.Identity;
 
 namespace FIT5032_Portfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MRIServiceProvidersController : Controller
     {
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
         // GET: MRIServiceProviders
+        [AllowAnonymous]
         public ActionResult Index()
+        {
+            return View(db.MRIServiceProviders.ToList());
+        }
+
+        // GET: MRIServiceProviders/Index
+        public ActionResult Manage()
         {
             return View(db.MRIServiceProviders.ToList());
         }
@@ -47,7 +55,6 @@ namespace FIT5032_Portfolio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public ActionResult Create([Bind(Include = "Id,Name,Postcode,Address,Email,Phone,Open,Close,Lat,Long")] MRIServiceProvider mRIServiceProvider)
         {
             mRIServiceProvider.UserId = User.Identity.GetUserId();
@@ -59,7 +66,7 @@ namespace FIT5032_Portfolio.Controllers
             {
                 db.MRIServiceProviders.Add(mRIServiceProvider);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
             return View(mRIServiceProvider);
@@ -91,7 +98,7 @@ namespace FIT5032_Portfolio.Controllers
             {
                 db.Entry(mRIServiceProvider).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
             return View(mRIServiceProvider);
         }
@@ -119,7 +126,7 @@ namespace FIT5032_Portfolio.Controllers
             MRIServiceProvider mRIServiceProvider = db.MRIServiceProviders.Find(id);
             db.MRIServiceProviders.Remove(mRIServiceProvider);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Manage");
         }
 
         protected override void Dispose(bool disposing)
