@@ -304,3 +304,6 @@ C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\bin
 C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\bin\roslyn\System.Memory.dll
 C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\bin\roslyn\System.Numerics.Vectors.dll
 C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\obj\Debug\FIT5032_Portfolio.Migrations.InitialCreate.resources
+C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\obj\Debug\FIT5032_Portfolio.csproj.GenerateResource.cache
+C:\Users\venus\Desktop\FIT5032_Portfolio\FIT5032_Portfolio\FIT5032_Portfolio\obj\Debug\FIT5032_Portfolio.Migrations.Name.resources
