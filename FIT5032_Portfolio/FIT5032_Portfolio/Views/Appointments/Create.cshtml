@@ -5,13 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js"></script>
+
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Appointment</h4>
         <hr />
@@ -51,6 +54,15 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    $('#datepicker').datepicker({
+        format: "dd/mm/yyyy",
+        startDate: "20/08/2023",
+        clearBtn: true,
+        autoclose: true
+    })
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

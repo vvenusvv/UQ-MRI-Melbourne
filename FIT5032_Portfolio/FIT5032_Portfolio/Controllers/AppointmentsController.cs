@@ -91,8 +91,13 @@ namespace FIT5032_Portfolio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Date,Time,UserId,MriId")] Appointment appointment)
+        public ActionResult Edit([Bind(Include = "Id,Date,Time,MriId")] Appointment appointment)
         {
+            appointment.UserId = User.Identity.GetUserId();
+
+            ModelState.Clear();
+            TryValidateModel(appointment);
+
             if (ModelState.IsValid)
             {
                 db.Entry(appointment).State = EntityState.Modified;

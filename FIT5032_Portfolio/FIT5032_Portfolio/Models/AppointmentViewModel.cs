@@ -9,12 +9,16 @@ namespace FIT5032_Portfolio.Models
     public class MakeAppointmentModel
     {
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Appointment Date")]
-        public System.DateTime Date{ get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm:ss}")]
         [Display(Name = "Appointment Time")]
-        public System.TimeSpan Time { get; set; }
+        public TimeSpan Time { get; set; }
 
         [Required]
         [Display(Name = "MRI Service Provider")]

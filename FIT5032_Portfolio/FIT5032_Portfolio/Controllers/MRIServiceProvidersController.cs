@@ -16,7 +16,7 @@ namespace FIT5032_Portfolio.Controllers
     {
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
-        // GET: MRIServiceProviders
+        // GET: MRIServiceProviders/Index
         [AllowAnonymous]
         public ActionResult Index()
         {

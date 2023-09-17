@@ -29,12 +29,15 @@ namespace FIT5032_Portfolio.Models
         public string Phone { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm:ss}")]
         [Display(Name = "Opening Time")]
-        public string Open { get; set; }
+        public TimeSpan Open { get; set; }
 
         [Required]
-        [Display(Name = "Closing Time")]
-        public string Close { get; set; }
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm:ss}")]
+        public TimeSpan Close { get; set; }
 
         [Display(Name = "Latitude")]
         public string Lat { get; set; }

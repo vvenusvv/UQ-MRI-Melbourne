@@ -11,10 +11,13 @@ namespace FIT5032_Portfolio.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Appointment
     {
         public int Id { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public System.DateTime Date { get; set; }
         public System.TimeSpan Time { get; set; }
         public string UserId { get; set; }
