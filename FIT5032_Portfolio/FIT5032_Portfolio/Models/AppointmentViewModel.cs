@@ -10,7 +10,7 @@ namespace FIT5032_Portfolio.Models
     {
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Appointment Date")]
         public DateTime Date { get; set; }
 

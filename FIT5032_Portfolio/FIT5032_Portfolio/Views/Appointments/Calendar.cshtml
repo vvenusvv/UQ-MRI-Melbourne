@@ -1,0 +1,60 @@
+﻿@model IEnumerable<FIT5032_Portfolio.Models.Appointment>
+
+@{
+    ViewBag.Title = "Calendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/fullcalendar/fullcalendar.min.js"></script>
+
+<h2>Calendar</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Back to Index", "Index")
+</p>
+
+<div id="calendar"></div>
+<div style="display: none">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MRIServiceProvider.Name)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr class="events">
+                <td class="date">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="time">
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td class="title">
+                    @Html.DisplayFor(modelItem => item.MRIServiceProvider.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/fullcalendar")
+}

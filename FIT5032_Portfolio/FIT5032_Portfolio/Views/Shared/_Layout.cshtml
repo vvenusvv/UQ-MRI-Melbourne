@@ -9,6 +9,7 @@
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 
 </head>
 <body>
@@ -32,6 +33,11 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Manage MRI Service Providers", "Manage", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+
+                    @if (User.IsInRole("MRIServiceProvider"))
+                    {
+                        <li>@Html.ActionLink("Edit", "Manage", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

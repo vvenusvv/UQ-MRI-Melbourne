@@ -17,7 +17,7 @@ namespace FIT5032_Portfolio.Models
     {
         public int Id { get; set; }
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public System.DateTime Date { get; set; }
         public System.TimeSpan Time { get; set; }
         public string UserId { get; set; }

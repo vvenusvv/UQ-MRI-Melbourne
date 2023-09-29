@@ -25,6 +25,14 @@ namespace FIT5032_Portfolio.Controllers
             return View(appointments);
         }
 
+        public ActionResult Calendar()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var appointments = db.Appointments.Where(a => a.UserId == userId).ToList();
+            return View(appointments);
+        }
+
         // GET: Appointments/Details/5
         public ActionResult Details(int? id)
         {

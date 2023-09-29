@@ -11,9 +11,25 @@ using Microsoft.AspNet.Identity;
 
 namespace FIT5032_Portfolio.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [RequireHttps]
+    [Authorize(Roles = "Admin,MRIServiceProvider")]
     public class MRIServiceProvidersController : Controller
     {
+        public ActionResult SetSecureCookie()
+        {
+            var cookie = new HttpCookie("MyCookie");
+            cookie.Value = "cookieValue";
+
+            // Set the Secure and HttpOnly flags
+            cookie.Secure = true;
+            cookie.HttpOnly = true;
+
+            // Add the cookie to the response
+            Response.Cookies.Add(cookie);
+
+            return View();
+        }
+
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
         // GET: MRIServiceProviders/Index
@@ -45,6 +61,7 @@ namespace FIT5032_Portfolio.Controllers
         }
 
         // GET: MRIServiceProviders/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -55,6 +72,7 @@ namespace FIT5032_Portfolio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,Name,Postcode,Address,Email,Phone,Open,Close,Lat,Long")] MRIServiceProvider mRIServiceProvider)
         {
             mRIServiceProvider.UserId = User.Identity.GetUserId();
@@ -104,6 +122,7 @@ namespace FIT5032_Portfolio.Controllers
         }
 
         // GET: MRIServiceProviders/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,6 +140,7 @@ namespace FIT5032_Portfolio.Controllers
         // POST: MRIServiceProviders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             MRIServiceProvider mRIServiceProvider = db.MRIServiceProviders.Find(id);
