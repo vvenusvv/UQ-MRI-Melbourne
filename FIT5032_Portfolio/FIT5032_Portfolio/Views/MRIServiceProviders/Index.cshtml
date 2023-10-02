@@ -35,10 +35,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Close)
             </th>
-            <th>
+            <th  style="display: none;">
                 @Html.DisplayNameFor(model => model.Lat)
             </th>
-            <th>
+            <th  style="display: none;">
                 @Html.DisplayNameFor(model => model.Long)
             </th>
         </tr>
@@ -47,7 +47,7 @@
         @foreach (var item in Model)
         {
             <tr class="coordinates">
-                <td class="name">
+                <td class="Name">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
@@ -68,10 +68,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Close)
                 </td >
-                <td class="Lat">
+                <td class="Lat" style="display: none;;">
                     @Html.DisplayFor(modelItem => item.Lat)
                 </td>
-                <td class="Long">
+                <td class="Long" style="display: none;">
                     @Html.DisplayFor(modelItem => item.Long)
                 </td>
             </tr>

@@ -94,6 +94,16 @@
           <Property Name="Long" Type="numeric" Precision="11" Scale="8" />
           <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="varchar(max)" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AppointmentId" Type="int" />
+        </EntityType>
         <Association Name="FK__Appointme__MriId__4D94879B">
           <End Role="MRIServiceProvider" Type="Self.MRIServiceProvider" Multiplicity="1" />
           <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
@@ -103,6 +113,18 @@
             </Principal>
             <Dependent Role="Appointment">
               <PropertyRef Name="MriId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Review__Appointm__5CD6CB2B">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="0..1" />
+          <End Role="Review" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="AppointmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -171,9 +193,14 @@
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MRIServiceProvider" EntityType="Self.MRIServiceProvider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Appointme__MriId__4D94879B" Association="Self.FK__Appointme__MriId__4D94879B">
             <End Role="MRIServiceProvider" EntitySet="MRIServiceProvider" />
             <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Review__Appointm__5CD6CB2B" Association="Self.FK__Review__Appointm__5CD6CB2B">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="Review" EntitySet="Review" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -206,6 +233,7 @@
           <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MriId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="MRIServiceProvider" Relationship="Self.FK__Appointme__MriId__4D94879B" FromRole="Appointment" ToRole="MRIServiceProvider" />
+          <NavigationProperty Name="Reviews" Relationship="FIT5032_Portfolio.FK__Review__Appointm__5CD6CB2B" FromRole="Appointment" ToRole="Review" />
         </EntityType>
         <EntityType Name="MRIServiceProvider">
           <Key>
@@ -259,6 +287,11 @@
           <AssociationSet Name="AspNetUserRoles" Association="FIT5032_Portfolio.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Reviews" EntityType="FIT5032_Portfolio.Review" />
+          <AssociationSet Name="FK__Review__Appointm__5CD6CB2B" Association="FIT5032_Portfolio.FK__Review__Appointm__5CD6CB2B">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -353,6 +386,29 @@
         <Association Name="AspNetUserRoles">
           <End Type="FIT5032_Portfolio.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="FIT5032_Portfolio.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentId" Type="Int32" />
+          <NavigationProperty Name="Appointment" Relationship="FIT5032_Portfolio.FK__Review__Appointm__5CD6CB2B" FromRole="Review" ToRole="Appointment" />
+        </EntityType>
+        <Association Name="FK__Review__Appointm__5CD6CB2B">
+          <End Type="FIT5032_Portfolio.Appointment" Role="Appointment" Multiplicity="0..1" />
+          <End Type="FIT5032_Portfolio.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="AppointmentId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -453,6 +509,17 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="FIT5032_Portfolio.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -15,6 +15,12 @@ namespace FIT5032_Portfolio.Models
 
     public partial class Appointment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Appointment()
+        {
+            this.Reviews = new HashSet<Review>();
+        }
+    
         public int Id { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
@@ -24,5 +30,7 @@ namespace FIT5032_Portfolio.Models
         public int MriId { get; set; }
     
         public virtual MRIServiceProvider MRIServiceProvider { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

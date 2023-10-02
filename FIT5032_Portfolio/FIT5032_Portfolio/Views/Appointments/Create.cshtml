@@ -15,22 +15,25 @@
         <h4>Appointment</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <p></p>
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="date" name="Date" id="appointmentdate" required />
+    <div class="form-group">
+        <p></p>
+        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <p>Appointments are available from the next day.</p>
+        <div class="col-md-10">
+            <input type="date" name="Date" id="appointmentdate" required />
 
-                <script>
-                    var today = new Date().toISOString().split('T')[0];
-                    document.getElementById('appointmentdate').min = today;
-                    var date = moment(document.getElementById('appointmentdate').value()).format(ýyyy - MM - dd);
-                    document.getElementById('appointmentdate').value() = date;
-                </script>
+            <script>
+                var date = new Date();
+                date.setDate(date.getDate() + 1);
+                var tomorrow = date.toISOString().split('T')[0];
+                document.getElementById('appointmentdate').min = tomorrow;
+                var date = moment(document.getElementById('appointmentdate').value()).format(ýyyy - MM - dd);
+                document.getElementById('appointmentdate').value() = date;
+            </script>
 
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
         </div>
+    </div>
 
         <div class="form-group">
             <p></p>
@@ -64,15 +67,6 @@
     @Html.ActionLink("Back to List", "Index")
     @Html.ActionLink("Back to Calendar", "Calendar")
 </div>
-
-<script>
-    $('#datepicker').datepicker({
-        format: "dd/mm/yyyy",
-        startDate: "20/08/2023",
-        clearBtn: true,
-        autoclose: true
-    })
-</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

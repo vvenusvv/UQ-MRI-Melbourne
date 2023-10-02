@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using FIT5032_Portfolio.Models;
@@ -11,10 +13,26 @@ using Microsoft.AspNet.Identity;
 
 namespace FIT5032_Portfolio.Controllers
 {
+    [RequireHttps]
     [Authorize]
     public class AppointmentsController : Controller
     {
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
+
+        public ActionResult SetSecureCookie()
+        {
+            var cookie = new HttpCookie("MyCookie");
+            cookie.Value = "cookieValue";
+
+            // Set the Secure and HttpOnly flags
+            cookie.Secure = true;
+            cookie.HttpOnly = true;
+
+            // Add the cookie to the response
+            Response.Cookies.Add(cookie);
+
+            return View();
+        }
 
         // GET: Appointments
         public ActionResult Index()
@@ -31,6 +49,66 @@ namespace FIT5032_Portfolio.Controllers
 
             var appointments = db.Appointments.Where(a => a.UserId == userId).ToList();
             return View(appointments);
+        }
+
+        public ActionResult RetrieveResult(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(appointment);
+        }
+
+        [HttpPost, ActionName("RetrieveResult")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SendResult()
+        {
+            try
+            {
+                string toEmail = User.Identity.GetUserName();
+                string subject = "MRI Result";
+                string contents = "Enclosed is your MRI result. \n\nThank you for choosing UQ MRI Melbourne.";
+
+                string GoogleID = "portfolio.use.personal@gmail.com";
+                string TempPwd = "ewfufqmsrwuakkoj";
+
+                string SmtpServer = "smtp.gmail.com";
+                int SmtpPort = 587;
+
+                MailMessage email = new MailMessage();
+                email.From = new MailAddress(GoogleID);
+                email.Subject = subject;
+                email.Body = contents;
+                email.IsBodyHtml = true;
+                email.SubjectEncoding = Encoding.UTF8;
+                email.To.Add(new MailAddress(toEmail));
+
+                string attachmentPath = Server.MapPath("~/Attachment/result.txt");
+
+                Attachment newAttach = new Attachment(attachmentPath);
+                email.Attachments.Add(newAttach);
+
+                using (SmtpClient client = new SmtpClient(SmtpServer, SmtpPort))
+                {
+                    client.EnableSsl = true;
+                    client.Credentials = new NetworkCredential(GoogleID, TempPwd);
+                    client.Send(email);
+                }
+
+                ViewBag.Message = "MRI Result has been send to your email.";
+                return View();
+            }
+            catch
+            {
+                ViewBag.Message = "Failed to send result to your email.";
+                return View();
+            }
         }
 
         // GET: Appointments/Details/5

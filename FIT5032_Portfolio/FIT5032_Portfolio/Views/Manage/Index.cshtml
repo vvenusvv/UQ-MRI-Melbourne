@@ -13,11 +13,13 @@
             <h5>Manage Appointment</h5>
             <hr />
             @Html.ActionLink("Make An Appointment", "Create", "Appointments", new { area = "" }, new { @class = "nav-link" })
-            @Html.ActionLink("View All Appointment", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })
+            @Html.ActionLink("View All Appointments", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })
         </section>
         <section class="col-md-4">
-            <h5>Retrieve MRI Result</h5>
+            <h5>Manage Review</h5>
             <hr />
+            @Html.ActionLink("Leave A Review", "Create", "Reviews", new { area = "" }, new { @class = "nav-link" })
+            @Html.ActionLink("View All Reviews", "Index", "Reviews", new { area = "" }, new { @class = "nav-link" })
         </section>
     </div>
     <br />

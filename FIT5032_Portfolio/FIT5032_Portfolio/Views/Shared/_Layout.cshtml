@@ -37,7 +37,7 @@
 
                     @if (User.IsInRole("MRIServiceProvider"))
                     {
-                        <li>@Html.ActionLink("Edit", "Manage", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Edit", "MRIView", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

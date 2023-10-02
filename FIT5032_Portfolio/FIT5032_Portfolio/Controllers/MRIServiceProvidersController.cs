@@ -45,6 +45,15 @@ namespace FIT5032_Portfolio.Controllers
             return View(db.MRIServiceProviders.ToList());
         }
 
+        // GET: MRIServiceProviders/MRIView
+        public ActionResult MRIView()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var mriServiceProviders = db.MRIServiceProviders.Where(m => m.UserId == userId).ToList();
+            return View(mriServiceProviders);
+        }
+
         // GET: MRIServiceProviders/Details/5
         public ActionResult Details(int? id)
         {
