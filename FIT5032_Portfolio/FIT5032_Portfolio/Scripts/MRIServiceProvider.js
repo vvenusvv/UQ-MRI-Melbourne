@@ -31,7 +31,7 @@ for (i = 0; i < locations.length; i++) {
 
 mapboxgl.accessToken = TOKEN;
 
-var map = new mapboxgl.Map({
+const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v12',
     zoom: 11,
@@ -68,6 +68,13 @@ map.on('load', () => {
     );
 
     map.addControl(new mapboxgl.NavigationControl());
+
+    map.addControl(
+        new MapboxDirections({
+            accessToken: mapboxgl.accessToken
+        }),
+        'top-left'
+    );
 
     map.on('click', 'places', (e) => {
         var coordinates = e.features[0].geometry.coordinates.slice();

@@ -101,12 +101,12 @@ namespace FIT5032_Portfolio.Controllers
                     client.Send(email);
                 }
 
-                ViewBag.Message = "MRI Result has been send to your email.";
+                ViewBag.Result = "MRI Result has been send to your email.";
                 return View();
             }
             catch
             {
-                ViewBag.Message = "Failed to send result to your email.";
+                ViewBag.Result = "Failed to send result to your email.";
                 return View();
             }
         }
@@ -147,13 +147,53 @@ namespace FIT5032_Portfolio.Controllers
             
             if (ModelState.IsValid)
             {
-                db.Appointments.Add(appointment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (!IsConflict(appointment))
+                {
+                    db.Appointments.Add(appointment);
+                    db.SaveChanges();
+                    ViewBag.Result = "Appointment Created.";
+                    ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
+                    return View(); 
+                }
+                else
+                {
+                    ViewBag.Result = "Booking not available. \nPlease try again.";
+                    ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
+                    return View(); ;
+                }
             }
 
             ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
-            return View(appointment);
+            return View();
+        }
+
+        private bool IsConflict(Appointment appointment)
+        {
+            var existingAppointments = db.Appointments.ToList();
+
+            foreach (var existingAppointment in existingAppointments)
+            {
+                if (IsOverlap(existingAppointment, appointment))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsOverlap(Appointment existingAppointment, Appointment appointment)
+        {
+            if (existingAppointment.MriId == appointment.MriId)
+            {
+                if (existingAppointment.Date == appointment.Date)
+                {
+                    if (existingAppointment.Time == appointment.Time)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         // GET: Appointments/Edit/5
@@ -188,7 +228,9 @@ namespace FIT5032_Portfolio.Controllers
             {
                 db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.Result = "Appointment changed.";
+                ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
+                return View(appointment);
             }
             ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
             return View(appointment);
@@ -217,7 +259,8 @@ namespace FIT5032_Portfolio.Controllers
             Appointment appointment = db.Appointments.Find(id);
             db.Appointments.Remove(appointment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            ViewBag.Result = "Appointment deleted.";
+            return View();
         }
 
         protected override void Dispose(bool disposing)

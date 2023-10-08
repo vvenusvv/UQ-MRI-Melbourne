@@ -6,6 +6,8 @@
 }
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
 
 <h2>Find a MRI Service Provider</h2>
 
@@ -35,10 +37,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Close)
             </th>
-            <th  style="display: none;">
+            <th style="display: none;">
                 @Html.DisplayNameFor(model => model.Lat)
             </th>
-            <th  style="display: none;">
+            <th style="display: none;">
                 @Html.DisplayNameFor(model => model.Long)
             </th>
         </tr>
@@ -67,7 +69,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Close)
-                </td >
+                </td>
                 <td class="Lat" style="display: none;;">
                     @Html.DisplayFor(modelItem => item.Lat)
                 </td>

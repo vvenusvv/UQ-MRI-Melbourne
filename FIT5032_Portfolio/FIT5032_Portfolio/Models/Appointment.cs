@@ -22,11 +22,21 @@ namespace FIT5032_Portfolio.Models
         }
     
         public int Id { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [Display(Name = "Appointment Date")]
         public System.DateTime Date { get; set; }
+
+        [Required]
+        [DataType(DataType.Time)]
+        [Display(Name = "Appointment Time")]
         public System.TimeSpan Time { get; set; }
         public string UserId { get; set; }
+
+        [Required]
+        [Display(Name = "MRI Service Provider")]
         public int MriId { get; set; }
     
         public virtual MRIServiceProvider MRIServiceProvider { get; set; }

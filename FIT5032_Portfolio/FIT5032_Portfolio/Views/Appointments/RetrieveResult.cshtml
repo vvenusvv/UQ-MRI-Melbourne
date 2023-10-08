@@ -7,16 +7,16 @@
 
 <h2>Retrieve Result</h2>
 
-@if (!string.IsNullOrEmpty(ViewBag.Message))
+@if (@ViewBag.Result != null)
 {
-    <p>@ViewBag.Message</p>
+    <div class="alert alert-info">@ViewBag.Result</div>
 }
 
 <p>
     @Html.ActionLink("Index", "Index")
 </p>
 
-@if (string.IsNullOrEmpty(ViewBag.Message))
+@if (@ViewBag.Result == null)
 {
     <div>
         <h4>Appointment</h4>
