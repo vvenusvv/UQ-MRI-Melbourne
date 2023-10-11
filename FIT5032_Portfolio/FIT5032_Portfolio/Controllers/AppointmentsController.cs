@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using FIT5032_Portfolio.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace FIT5032_Portfolio.Controllers
 {
@@ -40,6 +41,70 @@ namespace FIT5032_Portfolio.Controllers
             var userId = User.Identity.GetUserId();
 
             var appointments = db.Appointments.Where(a=> a.UserId == userId).ToList();
+            return View(appointments);
+        }
+
+        [Authorize(Roles = "MRIServiceProvider")]
+        public ActionResult MRIView()
+        {
+            var userId = User.Identity.GetUserId();
+            var mri = db.MRIServiceProviders.Where(m => m.UserId == userId).ToList();
+            var mriId = mri.FirstOrDefault()?.Id;
+
+            var appointments = db.Appointments.Where(a => a.MriId == mriId).ToList();
+
+            var labels = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+            int[] count = new int[12];
+            foreach (var item in appointments)
+            {
+                if (item.Date.Year == DateTime.Now.Year)
+                {
+                    switch (item.Date.Month)
+                    {
+                        case 1:
+                            count[0] += 1;
+                            break;
+                        case 2:
+                            count[1] += 1;
+                            break;
+                        case 3:
+                            count[2] += 1;
+                            break;
+                        case 4:
+                            count[3] += 1;
+                            break;
+                        case 5:
+                            count[4] += 1;
+                            break;
+                        case 6:
+                            count[5] += 1;
+                            break;
+                        case 7:
+                            count[6] += 1;
+                            break;
+                        case 8:
+                            count[7] += 1;
+                            break;
+                        case 9:
+                            count[8] += 1;
+                            break;
+                        case 10:
+                            count[9] += 1;
+                            break;
+                        case 11:
+                            count[10] += 1;
+                            break;
+                        default:
+                            count[11] += 1;
+                            break;
+                    }
+                }
+            }
+
+            ViewBag.ChartLabels = JsonConvert.SerializeObject(labels);
+            ViewBag.ChartData = JsonConvert.SerializeObject(count);
+
             return View(appointments);
         }
 

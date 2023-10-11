@@ -15,24 +15,9 @@
 }
 
 <div>
+    <h6>Average Rating for all MRI Service Provider</h6>
     <canvas id="myChart"></canvas>
 </div>
-
-<script>
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: @Html.Raw(Json.Encode(Model.Select(model => model.MriId))),
-            datasets: [{
-                label: 'Rating',
-                data: @Html.Raw(Json.Encode(Model.Select(model => model.Rating))),
-                borderWidth: 1
-            }]
-        }
-    });
-</script>
 
 <table class="table">
     <thead>
@@ -70,6 +55,7 @@
 
     @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
     @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
@@ -77,5 +63,23 @@
         $(document).ready(function () {
             $('.table').DataTable();
         });
+    </script>
+
+    <script>
+    const ctx = document.getElementById('myChart');
+
+    var labels = @Html.Raw(ViewBag.ChartLabels);
+    var data = @Html.Raw(ViewBag.ChartData);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Average Rating',
+                data: data,
+            }]
+        }
+    });
     </script>
 }

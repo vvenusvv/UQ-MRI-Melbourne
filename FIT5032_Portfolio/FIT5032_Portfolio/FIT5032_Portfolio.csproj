@@ -794,6 +794,7 @@
     <Content Include="Scripts\tinymce\themes\silver\theme.min.js" />
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Uploads\mri.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -852,6 +853,7 @@
     <Content Include="Views\Appointments\RetrieveResult.cshtml" />
     <Content Include="Views\Reviews\MRIView.cshtml" />
     <Content Include="Views\Manage\SendNewsletter.cshtml" />
+    <Content Include="Views\Appointments\MRIView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

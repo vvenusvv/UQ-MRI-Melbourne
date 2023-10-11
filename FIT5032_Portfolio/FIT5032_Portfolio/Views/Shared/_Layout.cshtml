@@ -25,7 +25,7 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Map", "Index", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated & !User.IsInRole("Admin") & !User.IsInRole("MRIServiceProvider"))
                     {
                         <li>@Html.ActionLink("Appointment", "Index", "Appointments", new { area = "" }, new { @class = "nav-link" })</li>
                     }
@@ -38,6 +38,7 @@
 
                     @if (User.IsInRole("MRIServiceProvider"))
                     {
+                        <li>@Html.ActionLink("Appointment", "MRIView", "Appointments", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Edit", "MRIView", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Review", "MRIView", "Reviews", new { area = "" }, new { @class = "nav-link" })</li>
                     }

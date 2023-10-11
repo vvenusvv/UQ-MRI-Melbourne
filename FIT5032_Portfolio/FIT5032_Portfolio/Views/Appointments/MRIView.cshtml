@@ -1,0 +1,86 @@
+﻿@model IEnumerable<FIT5032_Portfolio.Models.Appointment>
+
+@{
+    ViewBag.Title = "MRI View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@if (Model.Any())
+{
+    <p>Total Appointment: @Model.Count()</p>
+}
+
+<div>
+    <h5 align="center">Number of Appointment in @DateTime.Now.Year (By month) </h5>
+    <canvas id="myChart"></canvas>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MRIServiceProvider.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MRIServiceProvider.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        var labels = @Html.Raw(ViewBag.ChartLabels);
+        var data = @Html.Raw(ViewBag.ChartData);
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'No. of Appointments',
+                    data: data,
+                }]
+            },
+            options: {
+                responsive: true,
+            }
+        });
+    </script>
+}

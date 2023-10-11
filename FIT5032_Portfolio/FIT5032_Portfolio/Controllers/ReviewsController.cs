@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using FIT5032_Portfolio.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace FIT5032_Portfolio.Controllers
 {
@@ -29,6 +31,31 @@ namespace FIT5032_Portfolio.Controllers
         public ActionResult MRIView()
         {
             var reviews = db.Reviews.ToList();
+            var mri = db.MRIServiceProviders.ToList();
+
+            var labels = new ArrayList();
+            var temp = 0;
+
+            foreach (var item in mri)
+            {
+                labels.Add(item.Name);
+                temp += 1;
+            }
+
+            int[] count = new int[temp];
+            int[] rating = new int[temp];
+            int[] average = new int[temp];
+
+            foreach (var item in reviews)
+            {
+                var mriId = item.MriId - 1;
+                count[(int)mriId] += 1;
+                rating[(int)mriId] += item.Rating;
+                average[(int)mriId] = rating[(int)mriId] / count[(int)mriId];
+            }
+
+            ViewBag.ChartLabels = JsonConvert.SerializeObject(labels);
+            ViewBag.ChartData = JsonConvert.SerializeObject(average);
 
             return View(reviews);
         }
