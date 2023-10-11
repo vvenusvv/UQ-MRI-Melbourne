@@ -18,6 +18,7 @@
         <AssociationConnector Association="FIT5032_Portfolio.AspNetUserRoles" />
         <EntityTypeShape EntityType="FIT5032_Portfolio.Review" Width="1.5" PointX="3.125" PointY="4.25" />
         <AssociationConnector Association="FIT5032_Portfolio.FK__Review__Appointm__5CD6CB2B" />
+        <AssociationConnector Association="FIT5032_Portfolio.FK__Review__MriId__6E01572D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,6 +18,7 @@ namespace FIT5032_Portfolio.Models
         public MRIServiceProvider()
         {
             this.Appointments = new HashSet<Appointment>();
+            this.Reviews = new HashSet<Review>();
         }
     
         public int Id { get; set; }
@@ -34,5 +35,7 @@ namespace FIT5032_Portfolio.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

@@ -98,6 +98,7 @@
     <Property Name="Comment" Type="varchar(max)" Nullable="false" />
     <Property Name="UserId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="AppointmentId" Type="int" />
+    <Property Name="MriId" Type="int" />
   </EntityType>
   <Association Name="FK__Appointme__MriId__4D94879B">
     <End Role="MRIServiceProvider" Type="Self.MRIServiceProvider" Multiplicity="1" />
@@ -120,6 +121,18 @@
       </Principal>
       <Dependent Role="Review">
         <PropertyRef Name="AppointmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Review__MriId__6E01572D">
+    <End Role="MRIServiceProvider" Type="Self.MRIServiceProvider" Multiplicity="0..1" />
+    <End Role="Review" Type="Self.Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MRIServiceProvider">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="MriId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -195,6 +208,10 @@
     </AssociationSet>
     <AssociationSet Name="FK__Review__Appointm__5CD6CB2B" Association="Self.FK__Review__Appointm__5CD6CB2B">
       <End Role="Appointment" EntitySet="Appointment" />
+      <End Role="Review" EntitySet="Review" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Review__MriId__6E01572D" Association="Self.FK__Review__MriId__6E01572D">
+      <End Role="MRIServiceProvider" EntitySet="MRIServiceProvider" />
       <End Role="Review" EntitySet="Review" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">

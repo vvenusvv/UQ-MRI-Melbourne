@@ -40,12 +40,14 @@ namespace FIT5032_Portfolio.Controllers
         }
 
         // GET: MRIServiceProviders/Index
+        [Authorize(Roles = "Admin")]
         public ActionResult Manage()
         {
             return View(db.MRIServiceProviders.ToList());
         }
 
         // GET: MRIServiceProviders/MRIView
+        [Authorize(Roles = "MRIServiceProvider")]
         public ActionResult MRIView()
         {
             var userId = User.Identity.GetUserId();

@@ -11,18 +11,23 @@ namespace FIT5032_Portfolio.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;
 
     public partial class Review
     {
         public int Id { get; set; }
         public int Rating { get; set; }
-        
+
+
+        [Required]
         [AllowHtml]
         public string Comment { get; set; }
         public string UserId { get; set; }
         public Nullable<int> AppointmentId { get; set; }
+        public Nullable<int> MriId { get; set; }
     
         public virtual Appointment Appointment { get; set; }
+        public virtual MRIServiceProvider MRIServiceProvider { get; set; }
     }
 }

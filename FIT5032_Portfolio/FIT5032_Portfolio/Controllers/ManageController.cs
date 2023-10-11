@@ -7,6 +7,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FIT5032_Portfolio.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Mail;
+using System.Net;
+using System.Text;
 
 namespace FIT5032_Portfolio.Controllers
 {
@@ -15,6 +20,7 @@ namespace FIT5032_Portfolio.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
         public ManageController()
         {
@@ -24,6 +30,87 @@ namespace FIT5032_Portfolio.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult SendNewsletter()
+        {
+            return View(new AdminSendEmailModel());
+        }
+
+        private List<string> GetEmailAddresses()
+        {
+            List<string> emailAddresses = new List<string>();
+
+            foreach (var user in db.AspNetUsers)
+            {
+                emailAddresses.Add(user.Email);
+            }
+
+            return emailAddresses;
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public ActionResult SendNewsletter(AdminSendEmailModel model, HttpPostedFileBase postedFile)
+        {
+
+            string subject = model.Subject;
+            string contents = model.Contents;
+
+            string GoogleID = "portfolio.use.personal@gmail.com";
+            string TempPwd = "ewfufqmsrwuakkoj";
+
+            string SmtpServer = "smtp.gmail.com";
+            int SmtpPort = 587;
+
+            MailMessage email = new MailMessage();
+            email.From = new MailAddress(GoogleID);
+            email.Subject = subject;
+            email.Body = contents;
+            email.IsBodyHtml = true;
+            email.SubjectEncoding = Encoding.UTF8;
+
+            string fileName = Path.GetFileName(postedFile.FileName);
+            Attachment newAttach = new Attachment(postedFile.InputStream, fileName);
+            email.Attachments.Add(newAttach);
+
+            List<string> emailAddresses = GetEmailAddresses();
+
+            foreach (var emailAddress in emailAddresses)
+            {
+                try
+                {
+                    string toEmail = emailAddress;
+
+                    email.To.Add(new MailAddress(toEmail));
+                }
+                catch
+                {
+                    ViewBag.Result = "Failed in sending newsletter.";
+                    return View(new AdminSendEmailModel());
+                }
+            }
+
+            try
+            {
+                using (SmtpClient client = new SmtpClient(SmtpServer, SmtpPort))
+                {
+                    client.EnableSsl = true;
+                    client.Credentials = new NetworkCredential(GoogleID, TempPwd);
+                    client.Send(email);
+                }
+            }
+            catch
+            {
+                ViewBag.Result = "Failed in sending newsletter.";
+                return View(new AdminSendEmailModel());
+            }
+
+            ViewBag.Result = "Email has been send.";
+            ModelState.Clear();
+            return View(new AdminSendEmailModel());
         }
 
         public ApplicationSignInManager SignInManager

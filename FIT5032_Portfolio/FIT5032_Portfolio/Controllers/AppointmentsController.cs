@@ -89,7 +89,7 @@ namespace FIT5032_Portfolio.Controllers
                 email.SubjectEncoding = Encoding.UTF8;
                 email.To.Add(new MailAddress(toEmail));
 
-                string attachmentPath = Server.MapPath("~/Attachment/result.txt");
+                string attachmentPath = Server.MapPath("~/Attachment/mri_report.pdf");
 
                 Attachment newAttach = new Attachment(attachmentPath);
                 email.Attachments.Add(newAttach);

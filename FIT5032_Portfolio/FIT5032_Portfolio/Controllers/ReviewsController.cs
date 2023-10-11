@@ -25,6 +25,14 @@ namespace FIT5032_Portfolio.Controllers
             return View(reviews);
         }
 
+        [Authorize(Roles = "MRIServiceProvider")]
+        public ActionResult MRIView()
+        {
+            var reviews = db.Reviews.ToList();
+
+            return View(reviews);
+        }
+
         // GET: Reviews/Details/5
         public ActionResult Details(int? id)
         {
@@ -44,6 +52,7 @@ namespace FIT5032_Portfolio.Controllers
         public ActionResult Create()
         {
             ViewBag.AppointmentId = new SelectList(db.Appointments, "Id", "UserId");
+            ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name");
             return View();
         }
 
@@ -52,7 +61,7 @@ namespace FIT5032_Portfolio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Rating,Comment")] Review review, int id)
+        public ActionResult Create([Bind(Include = "Id,Rating,Comment,MriId")] Review review, int id)
         {
             review.UserId = User.Identity.GetUserId();
             review.AppointmentId = id;
@@ -66,7 +75,7 @@ namespace FIT5032_Portfolio.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name");
             return View(review);
         }
 
@@ -83,6 +92,7 @@ namespace FIT5032_Portfolio.Controllers
                 return HttpNotFound();
             }
             ViewBag.AppointmentId = new SelectList(db.Appointments, "Id", "UserId", review.AppointmentId);
+            ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name");
             return View(review);
         }
 
@@ -91,7 +101,7 @@ namespace FIT5032_Portfolio.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Rating,Comment")] Review review)
+        public ActionResult Edit([Bind(Include = "Id,Rating,Comment,MriId")] Review review)
         {
             review.UserId = User.Identity.GetUserId();
 
@@ -104,6 +114,7 @@ namespace FIT5032_Portfolio.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name");
             return View(review);
         }
 

@@ -97,6 +97,7 @@
     <EntitySetMapping Name="Reviews">
       <EntityTypeMapping TypeName="FIT5032_Portfolio.Review">
         <MappingFragment StoreEntitySet="Review">
+          <ScalarProperty Name="MriId" ColumnName="MriId" />
           <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />

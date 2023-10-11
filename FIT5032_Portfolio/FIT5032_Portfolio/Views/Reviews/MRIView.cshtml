@@ -1,0 +1,81 @@
+﻿@model IEnumerable<FIT5032_Portfolio.Models.Review>
+
+@{
+    ViewBag.Title = "MRI View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h2>Index</h2>
+
+@if (Model.Any())
+{
+    <p>Average Rating: @Model.Average(model => model.Rating)</p>
+}
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Encode(Model.Select(model => model.MriId))),
+            datasets: [{
+                label: 'Rating',
+                data: @Html.Raw(Json.Encode(Model.Select(model => model.Rating))),
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MRIServiceProvider.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.Raw(item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MRIServiceProvider.Name)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+
+    <link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+}

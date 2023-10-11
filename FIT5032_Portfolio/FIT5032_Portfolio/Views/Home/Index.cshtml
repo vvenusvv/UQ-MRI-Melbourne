@@ -7,5 +7,18 @@
         <h1 id="title">UQ MRI Melbourne</h1>
         <p class="lead">Ultimate Quality MRI Melbourne</p>
         <p>Provides you the best MRI service.</p>
+        <p>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "btn btn-outline-dark" })</p>
+    </section>
+
+    <section class="row" aria-labelledby="gettingStartedTitle">
+        <h2 id="gettingStartedTitle">Getting started</h2>
+        <p>
+            UQ MRI Melbourne offers a list of MRI service providers for you to choose, 
+            enables you to have full control over the appointment.
+            View all MRI Service Providers available.
+        </p>
+        <p>
+            @Html.ActionLink("Map", "Index", "MRIServiceProviders", new { area = "" }, new { @class = "btn btn-outline-dark" })
+        </p>
     </section>
 </main>

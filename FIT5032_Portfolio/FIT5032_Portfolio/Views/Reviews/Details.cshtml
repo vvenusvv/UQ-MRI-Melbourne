@@ -24,7 +24,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Comment)
+            @Html.Raw(Model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MRIServiceProvider.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MRIServiceProvider.Name)
         </dd>
     </dl>
 </div>
