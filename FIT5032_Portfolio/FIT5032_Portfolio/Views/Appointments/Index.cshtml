@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 id="title">@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -45,8 +45,13 @@
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Result", "RetrieveResult", new { id = item.Id }) |
-                    @Html.ActionLink("Review", "Create", "Reviews", new { id = item.Id }, null) |
+                    @if (DateTime.Now.Date > item.Date)
+                    {
+                        @Html.ActionLink("Result", "RetrieveResult", new { id = item.Id })
+                        <text> | </text>
+                        @Html.ActionLink("Review", "Create", "Reviews", new { id = item.Id }, null)
+                        <text> | </text>
+                    }
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>

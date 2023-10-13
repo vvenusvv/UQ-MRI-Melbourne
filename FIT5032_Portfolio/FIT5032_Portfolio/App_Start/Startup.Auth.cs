@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using FIT5032_Portfolio.Models;
+using Microsoft.Owin.Security.Facebook;
 
 namespace FIT5032_Portfolio
 {
@@ -55,8 +56,9 @@ namespace FIT5032_Portfolio
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //    appId:"1015103559728819",
+            //    appSecret: "3a4bb9190adc12e7f7a198beb00cb302" 
+            //);
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

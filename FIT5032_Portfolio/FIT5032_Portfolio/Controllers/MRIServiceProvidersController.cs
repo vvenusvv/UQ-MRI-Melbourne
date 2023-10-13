@@ -127,7 +127,11 @@ namespace FIT5032_Portfolio.Controllers
             {
                 db.Entry(mRIServiceProvider).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Manage");
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Manage");
+                }
+                return RedirectToAction("MRIView");
             }
             return View(mRIServiceProvider);
         }
@@ -156,7 +160,7 @@ namespace FIT5032_Portfolio.Controllers
         {
             MRIServiceProvider mRIServiceProvider = db.MRIServiceProviders.Find(id);
             db.MRIServiceProviders.Remove(mRIServiceProvider);
-            db.SaveChanges();
+            db.SaveChanges(); 
             return RedirectToAction("Manage");
         }
 

@@ -22,3 +22,27 @@ textarea {
 .navbar-custom {
     background-color: #d6ccc2;
 }
+
+@font-face {
+    font-family: 'Roboto Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto Serif'), url('~/Uploads/RobotoSerif-Regular.woff') format('woff'), url('~/Uploads/RobotoSerif-Regular.woff2') format('woff2'), url('~/Uploads/RobotoSerif-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto Serif';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Roboto Serif Bold'), url('~/Uploads/RobotoSerif-Bold.ttf') format('truetype');
+}
+
+* {
+    font-family: 'Roboto Serif' , Georgia, serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+#title {
+    font-weight: bold;
+}

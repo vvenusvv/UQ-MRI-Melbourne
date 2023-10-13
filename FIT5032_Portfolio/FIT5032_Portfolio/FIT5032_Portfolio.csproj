@@ -172,6 +172,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
+    <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MRIServiceProvidersController.cs" />
@@ -795,6 +796,10 @@
     <Content Include="Scripts\tinymce\tinymce.js" />
     <Content Include="Scripts\tinymce\tinymce.min.js" />
     <Content Include="Uploads\mri.jpg" />
+    <Content Include="Uploads\uqmri-1024.jpg" />
+    <Content Include="Uploads\uqmri-320.jpg" />
+    <Content Include="Uploads\uqmri-640.jpg" />
+    <Content Include="Uploads\uqmri.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -854,6 +859,15 @@
     <Content Include="Views\Reviews\MRIView.cshtml" />
     <Content Include="Views\Manage\SendNewsletter.cshtml" />
     <Content Include="Views\Appointments\MRIView.cshtml" />
+    <Content Include="Uploads\RobotoSerif-Regular.ttf" />
+    <Content Include="Uploads\RobotoSerif-Regular.woff" />
+    <Content Include="Uploads\RobotoSerif-Regular.woff2" />
+    <Content Include="Views\AspNetUsers\Create.cshtml" />
+    <Content Include="Views\AspNetUsers\Delete.cshtml" />
+    <Content Include="Views\AspNetUsers\Details.cshtml" />
+    <Content Include="Views\AspNetUsers\Edit.cshtml" />
+    <Content Include="Views\AspNetUsers\Index.cshtml" />
+    <Content Include="Uploads\RobotoSerif-Bold.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

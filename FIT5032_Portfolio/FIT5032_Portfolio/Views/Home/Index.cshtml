@@ -4,17 +4,23 @@
 
 <main>
     <br />
+    <section class="banner" align="center">
+        <img srcset="~/Uploads/uqmri-1024.jpg 1024w, ~/Uploads/uqmri-640.jpg 640w, ~/Uploads/uqmri-320.jpg 320w"
+             sizes="(max-width: 640px) 640px, (max-width: 320px) 320px,(max-width: 1024px) 1024px, 1300px"
+             src="~/Uploads/uqmri.png"
+             alt="UQ MRI Banner" />
+    </section>
+    <br />
     <section class="row" aria-labelledby="aspnetTitle">
-        <img class="col col-6" src="~/Uploads/mri.jpg" alt="MRI Scan" />
         <div class="col">
             <h3 id="title">UQ MRI Melbourne</h3>
             <p class="lead">Ultimate Quality MRI Melbourne</p>
-            <p>Provides you the best MRI service.</p>
+            <p>Learn more about UQ MRI.</p>
             <p>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "btn btn-outline-dark" })</p>
-            <br />
-            <hr />
-            <h3 id="gettingStartedTitle">Find MRI Service Provider</h3>
-            <p class="text">
+        </div>
+        <div class="col">
+            <h3 id="title">Find MRI Service Provider</h3>
+            <p>
                 UQ MRI Melbourne offers a list of MRI service providers for you to choose,
                 enables you to have full control over the appointment.
                 View all MRI Service Providers available.
