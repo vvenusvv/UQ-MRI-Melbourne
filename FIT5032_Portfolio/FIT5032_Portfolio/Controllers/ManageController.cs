@@ -16,11 +16,27 @@ using System.Text;
 namespace FIT5032_Portfolio.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
+
+        // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
+
+        public ActionResult SetSecureCookie()
+        {
+            var cookie = new HttpCookie("Cookie");
+            cookie.Value = "value";
+
+            cookie.Secure = true;
+            cookie.HttpOnly = true;
+
+            Response.Cookies.Add(cookie);
+
+            return View();
+        }
 
         public ManageController()
         {
@@ -50,6 +66,7 @@ namespace FIT5032_Portfolio.Controllers
             return emailAddresses;
         }
 
+        // Reference (Attachment): https://www.c-sharpcorner.com/UploadFile/sourabh_mishra1/sending-an-e-mail-with-attachment-using-Asp-Net-mvc/
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

@@ -15,16 +15,15 @@ namespace FIT5032_Portfolio.Controllers
     [Authorize(Roles = "Admin,MRIServiceProvider")]
     public class MRIServiceProvidersController : Controller
     {
+        // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
         public ActionResult SetSecureCookie()
         {
-            var cookie = new HttpCookie("MyCookie");
-            cookie.Value = "cookieValue";
+            var cookie = new HttpCookie("Cookie");
+            cookie.Value = "value";
 
-            // Set the Secure and HttpOnly flags
             cookie.Secure = true;
             cookie.HttpOnly = true;
 
-            // Add the cookie to the response
             Response.Cookies.Add(cookie);
 
             return View();

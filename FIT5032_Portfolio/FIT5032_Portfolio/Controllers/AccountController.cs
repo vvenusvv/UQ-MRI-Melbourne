@@ -13,10 +13,25 @@ using FIT5032_Portfolio.Models;
 namespace FIT5032_Portfolio.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
+        public ActionResult SetSecureCookie()
+        {
+            var cookie = new HttpCookie("Cookie");
+            cookie.Value = "value";
+
+            cookie.Secure = true;
+            cookie.HttpOnly = true;
+
+            Response.Cookies.Add(cookie);
+
+            return View();
+        }
 
         public AccountController()
         {

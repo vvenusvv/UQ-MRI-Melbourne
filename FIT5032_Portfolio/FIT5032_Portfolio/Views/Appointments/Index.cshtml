@@ -43,6 +43,7 @@
                     @Html.DisplayFor(modelItem => item.MRIServiceProvider.Name)
                 </td>
                 <td>
+                    <!--Reference: https://learn.microsoft.com/en-us/aspnet/web-pages/overview/getting-started/introducing-razor-syntax-c-->
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @if (DateTime.Now.Date > item.Date)

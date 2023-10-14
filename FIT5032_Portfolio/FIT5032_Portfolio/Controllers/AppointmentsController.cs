@@ -20,16 +20,16 @@ namespace FIT5032_Portfolio.Controllers
     {
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
+        // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
+
         public ActionResult SetSecureCookie()
         {
-            var cookie = new HttpCookie("MyCookie");
-            cookie.Value = "cookieValue";
+            var cookie = new HttpCookie("Cookie");
+            cookie.Value = "value";
 
-            // Set the Secure and HttpOnly flags
             cookie.Secure = true;
             cookie.HttpOnly = true;
 
-            // Add the cookie to the response
             Response.Cookies.Add(cookie);
 
             return View();
@@ -130,6 +130,7 @@ namespace FIT5032_Portfolio.Controllers
             return View(appointment);
         }
 
+        // Reference: https://blog.hungwin.com.tw/cs-gmail/
         [HttpPost, ActionName("RetrieveResult")]
         [ValidateAntiForgeryToken]
         public ActionResult SendResult()

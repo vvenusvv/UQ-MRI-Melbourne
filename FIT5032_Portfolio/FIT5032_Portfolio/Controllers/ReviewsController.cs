@@ -14,10 +14,25 @@ using Newtonsoft.Json;
 namespace FIT5032_Portfolio.Controllers
 {
     [Authorize]
+    [RequireHttps]
     public class ReviewsController : Controller
     {
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
+        // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
+
+        public ActionResult SetSecureCookie()
+        {
+            var cookie = new HttpCookie("Cookie");
+            cookie.Value = "value";
+
+            cookie.Secure = true;
+            cookie.HttpOnly = true;
+
+            Response.Cookies.Add(cookie);
+
+            return View();
+        }
         // GET: Reviews
         public ActionResult Index()
         {
