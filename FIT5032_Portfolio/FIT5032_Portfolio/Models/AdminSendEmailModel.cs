@@ -10,6 +10,14 @@ namespace FIT5032_Portfolio.Models
     public class AdminSendEmailModel
     {
         [Required]
+        [Display(Name = "Recipient")]
+        public IEnumerable<string> SelectedEmail { get; set; }
+
+
+        [Display(Name = "Recipient")]
+        public IEnumerable<SelectListItem> EmailList { get; set; }
+
+        [Required]
         [Display(Name = "Subject")]
         public string Subject { get; set; }
 
@@ -19,7 +27,7 @@ namespace FIT5032_Portfolio.Models
         public string Contents { get; set; }
 
         [Required]
-        [Display(Name = "Attachment (if any)")]
+        [Display(Name = "Attachment")]
         public string Attachment { get; set; }
     }
 }

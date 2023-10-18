@@ -33,5 +33,10 @@ namespace FIT5032_Portfolio.Controllers
         {
             return View();
         }
+
+        public ActionResult Communication()
+        {
+            return View();
+        }
     }
 }

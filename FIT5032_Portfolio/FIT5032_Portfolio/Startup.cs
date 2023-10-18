@@ -9,6 +9,7 @@ namespace FIT5032_Portfolio
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

@@ -48,12 +48,6 @@ namespace FIT5032_Portfolio.Controllers
             SignInManager = signInManager;
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult SendNewsletter()
-        {
-            return View(new AdminSendEmailModel());
-        }
-
         private List<string> GetEmailAddresses()
         {
             List<string> emailAddresses = new List<string>();
@@ -66,7 +60,42 @@ namespace FIT5032_Portfolio.Controllers
             return emailAddresses;
         }
 
-        // Reference (Attachment): https://www.c-sharpcorner.com/UploadFile/sourabh_mishra1/sending-an-e-mail-with-attachment-using-Asp-Net-mvc/
+        // Reference: https://dotnettutorials.net/lesson/listbox-html-helper-mvc/
+        private AdminSendEmailModel getNewModel()
+        {
+            List<string> emailAddresses = GetEmailAddresses();
+
+            List<SelectListItem> EmailSelectListItems = new List<SelectListItem>();
+
+            foreach (var email in emailAddresses)
+            {
+                SelectListItem selectList = new SelectListItem()
+                {
+                    Text = email,
+                    Value = email,
+                    Selected = false
+                };
+                EmailSelectListItems.Add(selectList);
+            }
+
+            AdminSendEmailModel sendNewsletterModel = new AdminSendEmailModel()
+            {
+                EmailList = EmailSelectListItems
+            };
+
+            return sendNewsletterModel;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult SendNewsletter()
+        {
+
+            AdminSendEmailModel sendNewsletterModel = getNewModel();
+
+            return View(sendNewsletterModel);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -95,7 +124,7 @@ namespace FIT5032_Portfolio.Controllers
 
             List<string> emailAddresses = GetEmailAddresses();
 
-            foreach (var emailAddress in emailAddresses)
+            foreach (var emailAddress in model.SelectedEmail)
             {
                 try
                 {
@@ -106,7 +135,9 @@ namespace FIT5032_Portfolio.Controllers
                 catch
                 {
                     ViewBag.Result = "Failed in sending newsletter.";
-                    return View(new AdminSendEmailModel());
+                    AdminSendEmailModel NewsletterModel = getNewModel();
+
+                    return View(NewsletterModel);
                 }
             }
 
@@ -122,12 +153,18 @@ namespace FIT5032_Portfolio.Controllers
             catch
             {
                 ViewBag.Result = "Failed in sending newsletter.";
-                return View(new AdminSendEmailModel());
+
+                AdminSendEmailModel NewModel = getNewModel();
+
+                return View(NewModel);
             }
 
             ViewBag.Result = "Email has been send.";
             ModelState.Clear();
-            return View(new AdminSendEmailModel());
+
+            AdminSendEmailModel sendNewsletterModel = getNewModel();
+
+            return View(sendNewsletterModel);
         }
 
         public ApplicationSignInManager SignInManager

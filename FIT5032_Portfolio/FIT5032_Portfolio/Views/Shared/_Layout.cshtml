@@ -13,6 +13,11 @@
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.1/mapbox-gl-directions.css" type="text/css">
+
     <script src="~/Scripts/tinymce/tinymce.min.js"></script>
 
 </head>
@@ -28,6 +33,7 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Communicate", "Communication", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Map", "Index", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
                     @if (User.Identity.IsAuthenticated & !User.IsInRole("Admin") & !User.IsInRole("MRIServiceProvider"))
                     {
@@ -37,6 +43,7 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Manage MRI", "Manage", "MRIServiceProviders", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Manage User", "Index", "AspNetUsers", new { area = "" }, new { @class = "nav-link" })</li>
                         <li>@Html.ActionLink("Newsletter", "SendNewsletter", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
                     }
 

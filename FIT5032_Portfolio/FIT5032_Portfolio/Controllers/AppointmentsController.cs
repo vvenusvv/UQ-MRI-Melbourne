@@ -105,6 +105,32 @@ namespace FIT5032_Portfolio.Controllers
             ViewBag.ChartLabels = JsonConvert.SerializeObject(labels);
             ViewBag.ChartData = JsonConvert.SerializeObject(count);
 
+            // Year 
+            var labelsYear = new int[5];
+            labelsYear[4] = DateTime.Now.Year;
+            labelsYear[3] = labelsYear[4] - 1;
+            labelsYear[2] = labelsYear[3] - 1;
+            labelsYear[1] = labelsYear[2] - 1;
+            labelsYear[0] = labelsYear[1] - 1;
+
+            int[] countYear = new int[5];
+            foreach (var item in appointments)
+            {
+                if (item.Date.Year == labelsYear[0])
+                    countYear[0] += 1;
+                else if (item.Date.Year == labelsYear[1])
+                    countYear[1] += 1;
+                else if (item.Date.Year == labelsYear[2])
+                    countYear[2] += 1;
+                else if (item.Date.Year == labelsYear[3])
+                    countYear[3] += 1;
+                else
+                    countYear[4] += 1;
+            }
+
+            ViewBag.ChartLabelsYear = JsonConvert.SerializeObject(labelsYear);
+            ViewBag.ChartDataYear = JsonConvert.SerializeObject(countYear);
+
             return View(appointments);
         }
 
@@ -139,7 +165,7 @@ namespace FIT5032_Portfolio.Controllers
             {
                 string toEmail = User.Identity.GetUserName();
                 string subject = "MRI Result";
-                string contents = "Enclosed is your MRI result. \n\nThank you for choosing UQ MRI Melbourne.";
+                string contents = "Enclosed is your MRI result. \nThank you for choosing UQ MRI Melbourne.";
 
                 string GoogleID = "portfolio.use.personal@gmail.com";
                 string TempPwd = "ewfufqmsrwuakkoj";
@@ -217,9 +243,47 @@ namespace FIT5032_Portfolio.Controllers
                 {
                     db.Appointments.Add(appointment);
                     db.SaveChanges();
-                    ViewBag.Result = "Appointment Created.";
-                    ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
-                    return View(); 
+                    try
+                    {
+                        int mriId = appointment.MriId;
+                        string mri = db.MRIServiceProviders.Find(mriId).Name;
+                        string date = appointment.Date.ToShortDateString();
+
+                        string toEmail = User.Identity.GetUserName();
+                        string subject = "UQ MRI Melbourne Appointment Confirmation";
+                        string contents = $"Below is your appointment detail: \nDate: {date} \nTime: {appointment.Time} \nMRI Service Provider: {mri} \n.Thank you for choosing UQ MRI Melbourne.";
+
+                        string GoogleID = "portfolio.use.personal@gmail.com";
+                        string TempPwd = "ewfufqmsrwuakkoj";
+
+                        string SmtpServer = "smtp.gmail.com";
+                        int SmtpPort = 587;
+
+                        MailMessage email = new MailMessage();
+                        email.From = new MailAddress(GoogleID);
+                        email.Subject = subject;
+                        email.Body = contents;
+                        email.IsBodyHtml = true;
+                        email.SubjectEncoding = Encoding.UTF8;
+                        email.To.Add(new MailAddress(toEmail));
+
+                        using (SmtpClient client = new SmtpClient(SmtpServer, SmtpPort))
+                        {
+                            client.EnableSsl = true;
+                            client.Credentials = new NetworkCredential(GoogleID, TempPwd);
+                            client.Send(email);
+                        }
+
+                        ViewBag.Result = "Appointment created. Confirmation email has been send to your email.";
+                        ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
+                        return View();
+                    }
+                    catch
+                    {
+                        ViewBag.Result = "Failed to send confirmation email to your email.";
+                        ViewBag.MriId = new SelectList(db.MRIServiceProviders, "Id", "Name", appointment.MriId);
+                        return View();
+                    }
                 }
                 else
                 {

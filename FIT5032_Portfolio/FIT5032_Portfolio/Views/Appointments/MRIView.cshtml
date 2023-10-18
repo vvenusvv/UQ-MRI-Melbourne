@@ -13,7 +13,9 @@
 }
 
 <div>
-    <h5 align="center">Number of Appointment in @DateTime.Now.Year (By month) </h5>
+    <h5 id="chartTitle" align="center">Number of Appointment in @DateTime.Now.Year (By Month) </h5>
+    <button onclick="changeToYear()" class="btn btn-outline-dark">Year</button>
+    <button onclick="changeToMonth()" class="btn btn-outline-dark">Month</button>
     <canvas id="myChart"></canvas>
 </div>
 
@@ -64,12 +66,12 @@
     </script>
 
     <script>
-        const ctx = document.getElementById('myChart');
+        var ctx = document.getElementById('myChart');
 
         var labels = @Html.Raw(ViewBag.ChartLabels);
         var data = @Html.Raw(ViewBag.ChartData);
 
-        new Chart(ctx, {
+        var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
@@ -82,5 +84,32 @@
                 responsive: true,
             }
         });
+    </script>
+
+    <!--Reference: https://www.freecodecamp.org/news/html-button-onclick-javascript-click-event-tutorial/-->
+    <script>
+        function changeToYear() {
+            document.getElementById('chartTitle').innerHTML = "Number of Appointment in Past 5 Years";
+            var newLabels = @Html.Raw(ViewBag.ChartLabelsYear);
+            var newData = @Html.Raw(ViewBag.ChartDataYear);
+
+            myChart.data.labels = newLabels;
+            myChart.data.datasets[0].data = newData;
+
+            myChart.update();
+            myChart.render();
+        }
+
+        function changeToMonth() {
+            document.getElementById('chartTitle').innerHTML = "Number of Appointment in @DateTime.Now.Year (By Month)";
+            var newLabels = @Html.Raw(ViewBag.ChartLabels);
+            var newData = @Html.Raw(ViewBag.ChartData);
+
+            myChart.data.labels = newLabels;
+            myChart.data.datasets[0].data = newData;
+
+            myChart.update();
+            myChart.render();
+         }
     </script>
 }

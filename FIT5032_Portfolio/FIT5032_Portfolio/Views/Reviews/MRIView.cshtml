@@ -11,11 +11,11 @@
 
 @if (Model.Any())
 {
-    <p>Average Rating: @Model.Average(model => model.Rating)</p>
+    <p>Average Rating for all MRI Service Providers: @Model.Average(model => model.Rating)</p>
 }
 
 <div>
-    <h6>Average Rating for all MRI Service Provider</h6>
+    <h5 align="center">Average Rating for different MRI Service Providers</h5>
     <canvas id="myChart"></canvas>
 </div>
 
