@@ -24,7 +24,6 @@ namespace FIT5032_Portfolio.Controllers
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
         // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
-
         public ActionResult SetSecureCookie()
         {
             var cookie = new HttpCookie("Cookie");
@@ -48,6 +47,7 @@ namespace FIT5032_Portfolio.Controllers
             SignInManager = signInManager;
         }
 
+        // method to return a list of email addresses 
         private List<string> GetEmailAddresses()
         {
             List<string> emailAddresses = new List<string>();
@@ -60,6 +60,7 @@ namespace FIT5032_Portfolio.Controllers
             return emailAddresses;
         }
 
+        // method to return an empty new model for sendNewsletter
         // Reference: https://dotnettutorials.net/lesson/listbox-html-helper-mvc/
         private AdminSendEmailModel getNewModel()
         {
@@ -86,6 +87,7 @@ namespace FIT5032_Portfolio.Controllers
             return sendNewsletterModel;
         }
 
+        // method to generate view for SendNewsletter
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult SendNewsletter()
@@ -96,6 +98,7 @@ namespace FIT5032_Portfolio.Controllers
             return View(sendNewsletterModel);
         }
 
+        // method to send newsletter after admin made request
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

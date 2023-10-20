@@ -20,7 +20,6 @@ namespace FIT5032_Portfolio.Controllers
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
         // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
-
         public ActionResult SetSecureCookie()
         {
             var cookie = new HttpCookie("Cookie");
@@ -42,12 +41,14 @@ namespace FIT5032_Portfolio.Controllers
             return View(reviews);
         }
 
+        // Review view for MRI service provider
         [Authorize(Roles = "MRIServiceProvider")]
         public ActionResult MRIView()
         {
             var reviews = db.Reviews.ToList();
             var mri = db.MRIServiceProviders.ToList();
 
+            // chart data
             var labels = new ArrayList();
             var temp = 0;
 

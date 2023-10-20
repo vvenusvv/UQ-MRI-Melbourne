@@ -21,7 +21,6 @@ namespace FIT5032_Portfolio.Controllers
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
         // Reference: https://blog.elmah.io/the-ultimate-guide-to-secure-cookies-with-web-config-in-net/ 
-
         public ActionResult SetSecureCookie()
         {
             var cookie = new HttpCookie("Cookie");
@@ -35,7 +34,7 @@ namespace FIT5032_Portfolio.Controllers
             return View();
         }
 
-        // GET: Appointments
+        // GET: Appointments (fot customer)
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
@@ -44,6 +43,7 @@ namespace FIT5032_Portfolio.Controllers
             return View(appointments);
         }
 
+        // Appointment Index for MRi service provider
         [Authorize(Roles = "MRIServiceProvider")]
         public ActionResult MRIView()
         {
@@ -53,6 +53,7 @@ namespace FIT5032_Portfolio.Controllers
 
             var appointments = db.Appointments.Where(a => a.MriId == mriId).ToList();
 
+            // Chart data by month
             var labels = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
             int[] count = new int[12];
@@ -105,7 +106,7 @@ namespace FIT5032_Portfolio.Controllers
             ViewBag.ChartLabels = JsonConvert.SerializeObject(labels);
             ViewBag.ChartData = JsonConvert.SerializeObject(count);
 
-            // Year 
+            // Chart data by year
             var labelsYear = new int[5];
             labelsYear[4] = DateTime.Now.Year;
             labelsYear[3] = labelsYear[4] - 1;
@@ -134,6 +135,7 @@ namespace FIT5032_Portfolio.Controllers
             return View(appointments);
         }
 
+        // Calendar view of appointment for customer
         public ActionResult Calendar()
         {
             var userId = User.Identity.GetUserId();
@@ -142,6 +144,7 @@ namespace FIT5032_Portfolio.Controllers
             return View(appointments);
         }
 
+        // Page for retrieving result, this method will search the database with the appointment id
         public ActionResult RetrieveResult(int? id)
         {
             if (id == null)
@@ -156,6 +159,7 @@ namespace FIT5032_Portfolio.Controllers
             return View(appointment);
         }
 
+        // Method to send email with report as attachment to customer, will execute after customer send request.
         // Reference: https://blog.hungwin.com.tw/cs-gmail/
         [HttpPost, ActionName("RetrieveResult")]
         [ValidateAntiForgeryToken]
@@ -297,6 +301,7 @@ namespace FIT5032_Portfolio.Controllers
             return View();
         }
 
+        // method to check whether new appointment conflicts with existing appointments
         private bool IsConflict(Appointment appointment)
         {
             var existingAppointments = db.Appointments.ToList();
@@ -311,6 +316,7 @@ namespace FIT5032_Portfolio.Controllers
             return false;
         }
 
+        // method to check whether new appointment overlaps with existing appointments
         private bool IsOverlap(Appointment existingAppointment, Appointment appointment)
         {
             if (existingAppointment.MriId == appointment.MriId)

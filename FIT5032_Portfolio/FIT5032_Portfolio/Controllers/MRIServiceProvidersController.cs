@@ -31,21 +31,21 @@ namespace FIT5032_Portfolio.Controllers
 
         private FIT5032_PortfolioEntities db = new FIT5032_PortfolioEntities();
 
-        // GET: MRIServiceProviders/Index
+        // GET: MRIServiceProviders/Index (for all users)
         [AllowAnonymous]
         public ActionResult Index()
         {
             return View(db.MRIServiceProviders.ToList());
         }
 
-        // GET: MRIServiceProviders/Index
+        // GET: MRIServiceProviders/Index (for admin)
         [Authorize(Roles = "Admin")]
         public ActionResult Manage()
         {
             return View(db.MRIServiceProviders.ToList());
         }
 
-        // GET: MRIServiceProviders/MRIView
+        // GET: MRIServiceProviders/MRIView (for MRI service provider)
         [Authorize(Roles = "MRIServiceProvider")]
         public ActionResult MRIView()
         {
