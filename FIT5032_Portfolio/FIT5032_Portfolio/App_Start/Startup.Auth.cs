@@ -56,14 +56,14 @@ namespace FIT5032_Portfolio
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //    appId:"1015103559728819",
-            //    appSecret: "3a4bb9190adc12e7f7a198beb00cb302" 
+            //    appId:"",
+            //    appSecret: "" 
             //);
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "615645201500-2gnud9ldg5hsn5mf9mp5b6jshskaq6g9.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientId = "",
+                ClientSecret = ""
             });
         }
     }
